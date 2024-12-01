@@ -75,7 +75,7 @@ export default function HeartRiskAssessment() {
             Heart Attack Risk Assessment
           </h1>
           <h2 className='text-sm lg:text-lg'>
-            ADTA5340: Discovery and Learning with Big Data
+            ADTA 5340: Discovery and Learning with Big Data
           </h2>
         </div>
       </header>
