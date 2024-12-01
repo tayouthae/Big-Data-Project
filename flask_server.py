@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from flask_cors import CORS
 
 # Load the trained models
 models = {
@@ -11,6 +12,9 @@ models = {
 
 # Initialize Flask app
 app = Flask(__name__)
+
+# Enable CORS
+CORS(app)
 
 @app.route('/')
 def home():
@@ -35,12 +39,22 @@ def predict():
 
         # Select model and make prediction
         model = models[model_name]
-        prediction = model.predict(features)
+        prediction = model.predict(features)[0]
+
+        # Convert prediction to boolean (true/false)
+        heart_risk = bool(prediction)
+
+        # Get probabilities if supported by the model
+        if hasattr(model, 'predict_proba'):
+            probabilities = model.predict_proba(features)[0].tolist()
+        else:
+            probabilities = None  # Some models like SVM may not support probabilities
 
         # Return result
         return jsonify({
             'model_used': model_name,
-            'Heart_Risk': int(prediction[0])
+            'Heart_Risk': heart_risk,
+            'probabilities': probabilities
         })
 
     except Exception as e:
