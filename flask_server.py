@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 import joblib
 import numpy as np
 from flask_cors import CORS
@@ -26,6 +26,13 @@ app = Flask(__name__)
 
 # Enable CORS
 #CORS(app)
+
+@app.before_request
+def limit_remote_addr():
+    allowed_origin = 'https://big-data-project.vercel.app'
+    origin = request.headers.get('Origin')
+    if origin != allowed_origin:
+        abort(403)  # Forbidden
 
 # Enable CORS for a specific URL
 CORS(app, resources={r"/*": {"origins": "https://big-data-project.vercel.app"}})
