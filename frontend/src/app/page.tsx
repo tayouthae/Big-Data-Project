@@ -35,11 +35,15 @@ export default function HeartRiskAssessment() {
       );
 
       // Replace with your Flask endpoint
-      const response = await fetch("http://127.0.0.1:5000/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ features, model }),
-      });
+      // const response = await fetch("http://127.0.0.1:5000/predict", {
+      const response = await fetch(
+        "https://big-data-project-su7f.onrender.com/predict",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ features, model }),
+        }
+      );
 
       const data = await response.json();
 
