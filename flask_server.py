@@ -25,7 +25,10 @@ MODEL_DETAILS = {
 app = Flask(__name__)
 
 # Enable CORS
-CORS(app)
+#CORS(app)
+
+# Enable CORS for a specific URL
+CORS(app, resources={r"/*": {"origins": "https://big-data-project.vercel.app"}})
 
 @app.route('/')
 def home():

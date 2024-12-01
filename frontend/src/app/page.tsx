@@ -85,111 +85,117 @@ export default function HeartRiskAssessment() {
       </header>
 
       {/* Main Content */}
-      <main className='flex flex-grow items-center justify-center container mx-auto p-4 lg:p-8'>
+      <main className='flex-grow flex items-center justify-center p-4 lg:p-8'>
         {/* Form Section */}
-        <div className='w-full lg:w-1/2 bg-white p-6 lg:p-8 rounded-xl shadow-lg lg:mr-6'>
-          <h2 className='text-2xl font-semibold text-blue-600 mb-4'>
-            Enter Your Details
-          </h2>
-          <form onSubmit={handleSubmit}>
-            <div className='mb-4'>
-              <label className='block text-lg font-medium text-gray-700'>
-                Age (in years):
-              </label>
-              <input
-                type='number'
-                placeholder='Enter your age'
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value) || "")}
-                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
-              />
-            </div>
-            <div className='mb-4'>
-              <label className='block text-lg font-medium text-gray-700'>
-                Cholesterol Level:
-              </label>
-              <input
-                type='number'
-                placeholder='Enter cholesterol level'
-                value={cholesterol}
-                onChange={(e) => setCholesterol(Number(e.target.value) || "")}
-                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
-              />
-            </div>
-            <div className='mb-4'>
-              <label className='block text-lg font-medium text-gray-700'>
-                Exercise Hours Per Week:
-              </label>
-              <input
-                type='number'
-                placeholder='Enter exercise hours'
-                value={exerciseHours}
-                onChange={(e) => setExerciseHours(Number(e.target.value) || "")}
-                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
-              />
-            </div>
-            <div className='mb-4'>
-              <label className='block text-lg font-medium text-gray-700'>
-                Stress Level (1-10):
-              </label>
-              <select
-                value={stressLevel}
-                onChange={(e) => setStressLevel(Number(e.target.value))}
-                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
-              >
-                {Array.from({ length: 10 }, (_, i) => i + 1).map((level) => (
-                  <option key={level} value={level}>
-                    {level}
+        <div className='flex flex-col lg:flex-row w-full max-w-7xl items-center justify-center space-y-6 lg:space-y-0 lg:space-x-6'>
+          <div className='w-full lg:w-1/2 bg-white p-6 lg:p-8 rounded-xl shadow-lg'>
+            <h2 className='text-2xl font-semibold text-blue-600 mb-4'>
+              Enter Your Details
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className='mb-4'>
+                <label className='block text-lg font-medium text-gray-700'>
+                  Age (in years):
+                </label>
+                <input
+                  type='number'
+                  placeholder='Enter your age'
+                  value={age}
+                  onChange={(e) => setAge(Number(e.target.value) || "")}
+                  className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                />
+              </div>
+              <div className='mb-4'>
+                <label className='block text-lg font-medium text-gray-700'>
+                  Cholesterol Level:
+                </label>
+                <input
+                  type='number'
+                  placeholder='Enter cholesterol level'
+                  value={cholesterol}
+                  onChange={(e) => setCholesterol(Number(e.target.value) || "")}
+                  className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                />
+              </div>
+              <div className='mb-4'>
+                <label className='block text-lg font-medium text-gray-700'>
+                  Exercise Hours Per Week:
+                </label>
+                <input
+                  type='number'
+                  placeholder='Enter exercise hours'
+                  value={exerciseHours}
+                  onChange={(e) =>
+                    setExerciseHours(Number(e.target.value) || "")
+                  }
+                  className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                />
+              </div>
+              <div className='mb-4'>
+                <label className='block text-lg font-medium text-gray-700'>
+                  Stress Level (1-10):
+                </label>
+                <select
+                  value={stressLevel}
+                  onChange={(e) => setStressLevel(Number(e.target.value))}
+                  className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                >
+                  {Array.from({ length: 10 }, (_, i) => i + 1).map((level) => (
+                    <option key={level} value={level}>
+                      {level}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className='mb-4'>
+                <label className='block text-lg font-medium text-gray-700'>
+                  BMI:
+                </label>
+                <input
+                  type='number'
+                  placeholder='Enter BMI'
+                  value={bmi}
+                  onChange={(e) => setBmi(Number(e.target.value) || "")}
+                  className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                />
+              </div>
+              <div className='mb-4'>
+                <label className='block text-lg font-medium text-gray-700'>
+                  Choose Model:
+                </label>
+                <select
+                  value={model}
+                  onChange={(e) => setModel(e.target.value)}
+                  className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                >
+                  <option value='random_forest'>Random Forest</option>
+                  <option value='logistic_regression'>
+                    Logistic Regression
                   </option>
-                ))}
-              </select>
-            </div>
-            <div className='mb-4'>
-              <label className='block text-lg font-medium text-gray-700'>
-                BMI:
-              </label>
-              <input
-                type='number'
-                placeholder='Enter BMI'
-                value={bmi}
-                onChange={(e) => setBmi(Number(e.target.value) || "")}
-                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
-              />
-            </div>
-            <div className='mb-4'>
-              <label className='block text-lg font-medium text-gray-700'>
-                Choose Model:
-              </label>
-              <select
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
-                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                  <option value='svm'>SVM</option>
+                </select>
+              </div>
+              <button
+                type='submit'
+                className='w-full bg-blue-600 text-white py-2 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
               >
-                <option value='random_forest'>Random Forest</option>
-                <option value='logistic_regression'>Logistic Regression</option>
-                <option value='svm'>SVM</option>
-              </select>
-            </div>
-            <button
-              type='submit'
-              className='w-full bg-blue-600 text-white py-2 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-            >
-              {loading ? "Predicting..." : "Predict"}
-            </button>
-          </form>
-        </div>
+                {loading ? "Predicting..." : "Predict"}
+              </button>
+            </form>
+          </div>
 
-        {/* Image Section */}
-        <div className='hidden lg:block w-1/2'>
-          <Image
-            src='/heart-attack.webp'
-            alt='Heart Health Prediction'
-            className='rounded-xl shadow-lg'
-            layout='responsive'
-            width={500}
-            height={500}
-            priority
-          />
+          {/* Image Section */}
+          <div className='hidden lg:block w-full lg:w-1/2'>
+            <Image
+              src='/heart-attack.webp'
+              alt='Heart Health Prediction'
+              className='rounded-xl shadow-lg'
+              layout='responsive'
+              width={500}
+              height={500}
+              priority
+            />
+          </div>
         </div>
       </main>
 
@@ -230,9 +236,9 @@ export default function HeartRiskAssessment() {
                             <span className='text-gray-800'>
                               {classNames[index]}:{" "}
                             </span>
-                            <span className='text-blue-700 font-medium'>
-                              {`${(prob * 100).toFixed(2)}%`}
-                            </span>
+                            <span className='text-blue-700 font-medium'>{`${(
+                              prob * 100
+                            ).toFixed(2)}%`}</span>
                           </li>
                         ))}
                       </ul>
