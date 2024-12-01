@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import Image from "next/image"; // Import Next.js Image component
+import Image from "next/image";
 
 type PredictionResult = {
   model_used: string;
@@ -11,11 +11,11 @@ type PredictionResult = {
 };
 
 export default function HeartRiskAssessment() {
-  const [age, setAge] = useState<number | "">("");
-  const [cholesterol, setCholesterol] = useState<number | "">("");
-  const [exerciseHours, setExerciseHours] = useState<number | "">("");
-  const [stressLevel, setStressLevel] = useState<number>(5); // Default stress level
-  const [bmi, setBmi] = useState<number | "">("");
+  const [age, setAge] = useState<number | "">(45);
+  const [cholesterol, setCholesterol] = useState<number | "">(200);
+  const [exerciseHours, setExerciseHours] = useState<number | "">(3);
+  const [stressLevel, setStressLevel] = useState<number>(7);
+  const [bmi, setBmi] = useState<number | "">(25);
   const [model, setModel] = useState<string>("random_forest");
   const [result, setResult] = useState<PredictionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -56,6 +56,14 @@ export default function HeartRiskAssessment() {
     }
   };
 
+  const formatModelName = (modelName: string): string => {
+    // Properly format model names
+    return modelName
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
   const classNames = ["Low Risk", "High Risk"]; // Updated class names
 
   return (
@@ -63,22 +71,24 @@ export default function HeartRiskAssessment() {
       {/* Navbar */}
       <header className='bg-blue-600 text-white p-4 shadow-md'>
         <div className='container mx-auto flex justify-between items-center'>
-          <h1 className='text-2xl font-bold'>Heart Attack Risk Assessment</h1>
-          <h2 className='text-lg'>
-            ADTA 5340: Discovery and Learning with Big Data
+          <h1 className='text-xl lg:text-2xl font-bold'>
+            Heart Attack Risk Assessment
+          </h1>
+          <h2 className='text-sm lg:text-lg'>
+            ADTA5340: Discovery and Learning with Big Data
           </h2>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className='flex flex-grow items-center justify-center container mx-auto p-8'>
+      <main className='flex flex-grow items-center justify-center container mx-auto p-4 lg:p-8'>
         {/* Form Section */}
-        <div className='w-full lg:w-1/2 bg-white p-8 rounded-xl shadow-lg lg:mr-8'>
-          <h2 className='text-2xl font-semibold text-blue-600 mb-6'>
+        <div className='w-full lg:w-1/2 bg-white p-6 lg:p-8 rounded-xl shadow-lg lg:mr-6'>
+          <h2 className='text-2xl font-semibold text-blue-600 mb-4'>
             Enter Your Details
           </h2>
           <form onSubmit={handleSubmit}>
-            <div className='mb-6'>
+            <div className='mb-4'>
               <label className='block text-lg font-medium text-gray-700'>
                 Age (in years):
               </label>
@@ -87,10 +97,10 @@ export default function HeartRiskAssessment() {
                 placeholder='Enter your age'
                 value={age}
                 onChange={(e) => setAge(Number(e.target.value) || "")}
-                className='mt-2 p-4 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
               />
             </div>
-            <div className='mb-6'>
+            <div className='mb-4'>
               <label className='block text-lg font-medium text-gray-700'>
                 Cholesterol Level:
               </label>
@@ -99,10 +109,10 @@ export default function HeartRiskAssessment() {
                 placeholder='Enter cholesterol level'
                 value={cholesterol}
                 onChange={(e) => setCholesterol(Number(e.target.value) || "")}
-                className='mt-2 p-4 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
               />
             </div>
-            <div className='mb-6'>
+            <div className='mb-4'>
               <label className='block text-lg font-medium text-gray-700'>
                 Exercise Hours Per Week:
               </label>
@@ -111,17 +121,17 @@ export default function HeartRiskAssessment() {
                 placeholder='Enter exercise hours'
                 value={exerciseHours}
                 onChange={(e) => setExerciseHours(Number(e.target.value) || "")}
-                className='mt-2 p-4 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
               />
             </div>
-            <div className='mb-6'>
+            <div className='mb-4'>
               <label className='block text-lg font-medium text-gray-700'>
                 Stress Level (1-10):
               </label>
               <select
                 value={stressLevel}
                 onChange={(e) => setStressLevel(Number(e.target.value))}
-                className='mt-2 p-4 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
               >
                 {Array.from({ length: 10 }, (_, i) => i + 1).map((level) => (
                   <option key={level} value={level}>
@@ -130,7 +140,7 @@ export default function HeartRiskAssessment() {
                 ))}
               </select>
             </div>
-            <div className='mb-6'>
+            <div className='mb-4'>
               <label className='block text-lg font-medium text-gray-700'>
                 BMI:
               </label>
@@ -139,17 +149,17 @@ export default function HeartRiskAssessment() {
                 placeholder='Enter BMI'
                 value={bmi}
                 onChange={(e) => setBmi(Number(e.target.value) || "")}
-                className='mt-2 p-4 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
               />
             </div>
-            <div className='mb-6'>
+            <div className='mb-4'>
               <label className='block text-lg font-medium text-gray-700'>
                 Choose Model:
               </label>
               <select
                 value={model}
                 onChange={(e) => setModel(e.target.value)}
-                className='mt-2 p-4 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
+                className='mt-2 p-3 w-full border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none'
               >
                 <option value='random_forest'>Random Forest</option>
                 <option value='logistic_regression'>Logistic Regression</option>
@@ -158,7 +168,7 @@ export default function HeartRiskAssessment() {
             </div>
             <button
               type='submit'
-              className='w-full bg-blue-600 text-white py-3 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+              className='w-full bg-blue-600 text-white py-2 rounded-lg shadow-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
             >
               {loading ? "Predicting..." : "Predict"}
             </button>
@@ -168,7 +178,7 @@ export default function HeartRiskAssessment() {
         {/* Image Section */}
         <div className='hidden lg:block w-1/2'>
           <Image
-            src='/heart-attack.webp' // Leading slash for images in public directory
+            src='/heart-attack.webp'
             alt='Heart Health Prediction'
             className='rounded-xl shadow-lg'
             layout='responsive'
@@ -182,7 +192,7 @@ export default function HeartRiskAssessment() {
       {/* Modal */}
       {isModalOpen && (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-white rounded-lg p-8 shadow-lg max-w-md w-full'>
+          <div className='bg-white rounded-lg p-6 lg:p-8 shadow-lg max-w-md w-full'>
             <h2 className='text-xl font-semibold text-blue-600 mb-4'>
               {error ? "Error" : "Prediction Result"}
             </h2>
@@ -190,26 +200,39 @@ export default function HeartRiskAssessment() {
               <p className='text-red-600'>{error}</p>
             ) : (
               result && (
-                <div>
+                <div className='space-y-4'>
                   <p>
-                    <strong>Model Used:</strong> {result.model_used}
+                    <strong>Model Used:</strong>{" "}
+                    <span className='text-blue-700'>
+                      {formatModelName(result.model_used)}
+                    </span>
                   </p>
                   <p>
                     <strong>Heart Risk:</strong>{" "}
                     {result.Heart_Risk ? (
-                      <span className='text-red-600'>High Risk</span>
+                      <span className='text-red-600 font-bold'>High Risk</span>
                     ) : (
-                      <span className='text-green-600'>Low Risk</span>
+                      <span className='text-green-600 font-bold'>Low Risk</span>
                     )}
                   </p>
                   {result.probabilities && (
-                    <ul className='mt-4'>
-                      {result.probabilities.map((prob, index) => (
-                        <li key={index}>
-                          {classNames[index]}: {`${(prob * 100).toFixed(2)}%`}
-                        </li>
-                      ))}
-                    </ul>
+                    <div>
+                      <h3 className='text-lg font-semibold text-blue-600'>
+                        Class Probabilities:
+                      </h3>
+                      <ul className='list-disc list-inside space-y-1'>
+                        {result.probabilities.map((prob, index) => (
+                          <li key={index}>
+                            <span className='text-gray-800'>
+                              {classNames[index]}:{" "}
+                            </span>
+                            <span className='text-blue-700 font-medium'>
+                              {`${(prob * 100).toFixed(2)}%`}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </div>
               )
@@ -223,6 +246,14 @@ export default function HeartRiskAssessment() {
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <footer className='bg-blue-600 text-white py-4'>
+        <div className='container mx-auto text-center'>
+          <h2 className='text-lg font-bold'>Team Members</h2>
+          <p>Tayouth Malla | Md Shoaib Akhter | Goutham Enukonda</p>
+        </div>
+      </footer>
     </div>
   );
 }
